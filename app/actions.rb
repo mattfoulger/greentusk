@@ -148,7 +148,7 @@ get '/authorize' do
   else
     # You shouldn't be invoking this if you don't have a request token
     @last_error = "Request token not set."
-    erb :error
+    erb :'errors/oauth_error'
   end
 end
 
@@ -158,7 +158,7 @@ end
 get '/callback' do
   unless params['oauth_verifier'] || session['request_token']
     @last_error = "Content owner did not authorize the temporary credentials"
-    halt erb :error
+    halt erb :'errors/oauth_error'
   end
   session[:oauth_verifier] = params['oauth_verifier']
   begin
@@ -166,7 +166,7 @@ get '/callback' do
     redirect '/load'
   rescue => e
     @last_error = 'Error extracting access token'
-    erb :error
+    erb :'errors/oauth_error'
   end
 end
 
