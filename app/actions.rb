@@ -108,7 +108,6 @@ get '/' do
   erb :index
 end
 
-
 ##
 # Reset the session 
 ##
@@ -127,17 +126,9 @@ get '/requesttoken' do
     redirect '/authorize'
   rescue => e
     @last_error = "Error obtaining temporary credentials: #{e.message}"
-    erb :error
+    erb :'errors/oauth_error'
   end
 end
-
-
-
-
-
-
-
-
 
 ##
 # Redirect the user to Evernote for authoriation
@@ -188,23 +179,22 @@ get '/load' do
   end
 end
 
-get '/notes/list' do
+get '/notes' do
   notebook_guid = params['notebook_guid']
   if tags = params['tags']
     tags = tags.split(',')
   end
   @notes = notes(notebook_guid: notebook_guid, tags: tags)
-  erb :list
+  erb :'/notes/index'
 end
 
 get '/notes/new' do
-  @notebooks = notebooks
-  erb :new
+  erb :'notes/new'
 end
 
 get '/notes/:guid' do
   if @note = note(params[:guid])
-    erb :show
+    erb :'notes/show'
   else
     erb :'errors/no_note_error'
   end 
@@ -217,7 +207,9 @@ post '/notes' do
   new_note.tagNames = ["markit"]
   new_note.content = format_content("")
   created_note = note_store.createNote(auth_token, new_note)
-  redirect '/notes/list'
+  redirect '/notes'
 end
+
+
 
 
