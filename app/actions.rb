@@ -206,6 +206,7 @@ post '/notes' do
   new_note = Evernote::EDAM::Type::Note.new
   new_note.title = params[:title]
   new_note.notebookGuid = params[:notebook_guid]
+  new_note.tagNames = ["markit"]
   new_note.content = format_content("")
   created_note = note_store.createNote(auth_token, new_note)
   redirect '/notes/list'
