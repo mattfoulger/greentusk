@@ -53,7 +53,6 @@ helpers do
 
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
     spec.includeTitle = true
-    binding.pry
     note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
   end
 
@@ -153,7 +152,7 @@ end
 #   end
 # end
 
-get '/list' do
+get '/notes/list' do
   notebook_guid = params['notebook_guid']
   if tags = params['tags']
     tags = tags.split(',')
@@ -162,9 +161,12 @@ get '/list' do
   erb :list
 end
 
+get '/notes/new' do
+  @notebooks = notebooks
+  erb :new
+end
 
-
-get '/show/:guid' do
+get '/notes/:guid' do
   if @note = note(params[:guid])
     erb :show
   else
@@ -172,3 +174,17 @@ get '/show/:guid' do
   end
 end
 
+post '/notes' do
+
+  new_note = Evernote::EDAM::Type::Note.new
+
+  new_note.title = params[:title]
+  new_note.notebookGuid = params[:notebook_guid]
+  new_note.content = format_content("")
+  created_note = note_store.createNote(auth_token, new_note)
+  redirect '/notes/list'
+end
+
+def format_content(string)
+  formatted_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
+end
