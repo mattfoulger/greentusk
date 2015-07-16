@@ -154,27 +154,9 @@ get '/callback' do
   session[:oauth_verifier] = params['oauth_verifier']
   begin
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    redirect '/load'
+    redirect '/notes'
   rescue => e
     @last_error = 'Error extracting access token'
-    erb :'errors/oauth_error'
-  end
-end
-
-
-##
-# Access the user's Evernote account and display account data
-##
-get '/load' do
-  begin
-
-    session[:notebooks] = notebooks.map(&:name)
-    session[:username] = en_user.username
-    session[:tags] = all_tags
-    session[:markit_tag] = create_tag("markit")
-    redirect '/notes/list'
-  rescue => e
-    @last_error = "Error listing notebooks: #{e.message}"
     erb :'errors/oauth_error'
   end
 end
