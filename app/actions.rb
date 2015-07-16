@@ -172,7 +172,6 @@ get '/load' do
     session[:username] = en_user.username
     session[:tags] = all_tags
     session[:markit_tag] = create_tag("markit")
-    binding.pry
     redirect '/notes/list'
   rescue => e
     @last_error = "Error listing notebooks: #{e.message}"
