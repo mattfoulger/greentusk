@@ -64,13 +64,41 @@ helpers do
     end
   end
 
-  def total_note_count
-    filter = Evernote::EDAM::NoteStore::NoteFilter.new
-    counts = note_store.findNoteCounts(auth_token, filter, true)
-    notebooks.inject(0) do |total_count, notebook|
-      total_count + (counts.notebookCounts[notebook.guid] || 0)
-    end
+  def format_content(string)
+    formatted_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
   end
+
+  def all_tags
+    hash = Hash.new
+    note_store.listTags.each do |tag|
+      hash[tag.guid] = tag.name
+    end
+    hash
+  end
+
+  def find_tag(tag_name)
+    all_tags.key(tag_name)
+  end
+
+  def create_tag(tag_name)
+    tag_guid = find_tag(tag_name)
+    if tag_guid == nil
+      tag = Evernote::EDAM::Type::Tag.new
+      tag.name = tag_name
+      created_tag = note_store.createTag(auth_token, tag)
+      tag_guid = created_tag.guid
+      session[:tags][tag_guid] = tag_name
+    end
+    tag_guid
+  end
+
+  # def total_note_count
+  #   filter = Evernote::EDAM::NoteStore::NoteFilter.new
+  #   counts = note_store.findNoteCounts(auth_token, filter, true)
+  #   notebooks.inject(0) do |total_count, notebook|
+  #     total_count + (counts.notebookCounts[notebook.guid] || 0)
+  #   end
+  # end
 end
 
 ##
@@ -126,7 +154,7 @@ get '/callback' do
   session[:oauth_verifier] = params['oauth_verifier']
   begin
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    redirect '/list'
+    redirect '/load'
   rescue => e
     @last_error = 'Error extracting access token'
     erb :error
@@ -137,20 +165,20 @@ end
 ##
 # Access the user's Evernote account and display account data
 ##
-# get '/list' do
-#   begin
-#     # Get notebooks
-#     session[:notebooks] = notebooks.map(&:name)
-#     # Get username
-#     session[:username] = en_user.username
-#     # Get total note count
-#     session[:total_notes] = total_note_count
-#     erb :index
-#   rescue => e
-#     @last_error = "Error listing notebooks: #{e.message}"
-#     erb :'errors/oauth_error'
-#   end
-# end
+get '/load' do
+  begin
+
+    session[:notebooks] = notebooks.map(&:name)
+    session[:username] = en_user.username
+    session[:tags] = all_tags
+    session[:markit_tag] = create_tag("markit")
+    binding.pry
+    redirect '/notes/list'
+  rescue => e
+    @last_error = "Error listing notebooks: #{e.message}"
+    erb :'errors/oauth_error'
+  end
+end
 
 get '/notes/list' do
   notebook_guid = params['notebook_guid']
@@ -175,9 +203,7 @@ get '/notes/:guid' do
 end
 
 post '/notes' do
-
   new_note = Evernote::EDAM::Type::Note.new
-
   new_note.title = params[:title]
   new_note.notebookGuid = params[:notebook_guid]
   new_note.content = format_content("")
@@ -185,6 +211,4 @@ post '/notes' do
   redirect '/notes/list'
 end
 
-def format_content(string)
-  formatted_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
-end
+
