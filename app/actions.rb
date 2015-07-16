@@ -43,20 +43,15 @@ helpers do
     @notebooks ||= note_store.listNotebooks(auth_token)
   end
 
-  def notes
+  def notes(notebook_guid = nil, tags = nil)
     filter = Evernote::EDAM::NoteStore::NoteFilter.new
-       # filter.words = "created:month-3"
-    # filter.notebookGuid = ["SomeNotebookGuidHere"]
-    # filter.tagGuids = ["<tagGuid1>","<tagGuid2>"]
+    
+    filter.notebookGuid = [notebook_guid] if notebook_guid
+    filter.tagGuids = tags if tags
 
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
-
     note_list = note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
-    @notes = []
-    note_list.notes.each do |note|
-       @notes << note_store.getNote(auth_token, note.guid, true, true, true, true)
-    end
-    @notes
+
   end
 
   def note(guid)
