@@ -53,7 +53,7 @@ helpers do
 
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
     spec.includeTitle = true
-    binding.pry
+    
     note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
   end
 
@@ -81,8 +81,9 @@ get '/' do
   erb :index
 end
 
+
 ##
-# Reset the session
+# Reset the session 
 ##
 get '/reset' do
   session.clear
@@ -102,6 +103,14 @@ get '/requesttoken' do
     erb :error
   end
 end
+
+
+
+
+
+
+
+
 
 ##
 # Redirect the user to Evernote for authoriation
@@ -169,6 +178,6 @@ get '/show/:guid' do
     erb :show
   else
     erb :'errors/no_note_error'
-  end
+  end 
 end
 
