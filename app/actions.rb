@@ -200,6 +200,12 @@ get '/notes/:guid' do
   end 
 end
 
+get '/notes/:guid/edit' do
+  @note = note(params[:guid])
+  erb :'notes/edit'
+end
+
+
 post '/notes' do
   new_note = Evernote::EDAM::Type::Note.new
   new_note.title = params[:title]
@@ -207,6 +213,17 @@ post '/notes' do
   new_note.tagNames = ["markit"]
   new_note.content = format_content("")
   created_note = note_store.createNote(auth_token, new_note)
+  redirect '/notes'
+end
+
+put '/notes' do
+  edit_note = Evernote::EDAM::Type::Note.edit
+  edit_note.guid = params[:guid]
+  edit_note.title = params[:title]
+  edit_note.notebookGuid = params[:notebook_guid]
+  edit_note.tagNames = [params[:tags]]
+  edit_note.content = format_content(params[:content])
+  updated_note = note_store.updateNote(auth_token, edit_note)
   redirect '/notes'
 end
 

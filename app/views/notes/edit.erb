@@ -1,0 +1,26 @@
+<h1>Edit note</h1>
+
+<form method="post" action="/notes">
+  <div>
+    <label>Note title:</label>
+    <input type="text" name="title" value=<%= @note.title %>>
+  </div>
+  <div>
+    <label>Notebook:</label>
+    <select name="notebook_guid">
+      <% notebooks.each do |notebook| %>
+      <option value="<%= notebook.guid %>" 
+        <% if notebook.guid == @note.notebookGuid %>
+          selected
+        <% end %>
+      ><%= notebook.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <div>
+    <textarea name="content" rows="25" cols="80" value=<%= @note.content %>>
+  </div>
+  <div>
+    <input type="hidden" value= <%= @note.guid %>>
+    <input type="submit" value="Submit">
+</form>
