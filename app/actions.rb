@@ -43,20 +43,18 @@ helpers do
     @notebooks ||= note_store.listNotebooks(auth_token)
   end
 
-  def notes
+  def notes(options = {})
+    notebook_guid = options[:notebook_guid]
+    tags = options[:tags]
+    
     filter = Evernote::EDAM::NoteStore::NoteFilter.new
-       # filter.words = "created:month-3"
-    # filter.notebookGuid = ["SomeNotebookGuidHere"]
-    # filter.tagGuids = ["<tagGuid1>","<tagGuid2>"]
+    filter.notebookGuid = notebook_guid if notebook_guid
+    filter.tagGuids = tags if tags
 
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
-
-    note_list = note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
-    @notes = []
-    note_list.notes.each do |note|
-       @notes << note_store.getNote(auth_token, note.guid, true, true, true, true)
-    end
-    @notes
+    spec.includeTitle = true
+    binding.pry
+    note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
   end
 
   def note(guid)
@@ -140,20 +138,31 @@ end
 ##
 # Access the user's Evernote account and display account data
 ##
+# get '/list' do
+#   begin
+#     # Get notebooks
+#     session[:notebooks] = notebooks.map(&:name)
+#     # Get username
+#     session[:username] = en_user.username
+#     # Get total note count
+#     session[:total_notes] = total_note_count
+#     erb :index
+#   rescue => e
+#     @last_error = "Error listing notebooks: #{e.message}"
+#     erb :'errors/oauth_error'
+#   end
+# end
+
 get '/list' do
-  begin
-    # Get notebooks
-    session[:notebooks] = notebooks.map(&:name)
-    # Get username
-    session[:username] = en_user.username
-    # Get total note count
-    session[:total_notes] = total_note_count
-    erb :index
-  rescue => e
-    @last_error = "Error listing notebooks: #{e.message}"
-    erb :'errors/oauth_error'
+  notebook_guid = params['notebook_guid']
+  if tags = params['tags']
+    tags = tags.split(',')
   end
+  @notes = notes(notebook_guid: notebook_guid, tags: tags)
+  erb :list
 end
+
+
 
 get '/show/:guid' do
   if @note = note(params[:guid])
