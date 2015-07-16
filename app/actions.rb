@@ -70,7 +70,6 @@ helpers do
   def total_note_count
     filter = Evernote::EDAM::NoteStore::NoteFilter.new
     counts = note_store.findNoteCounts(auth_token, filter, true)
-    binding.pry
     notebooks.inject(0) do |total_count, notebook|
       total_count + (counts.notebookCounts[notebook.guid] || 0)
     end
