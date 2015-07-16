@@ -1,0 +1,12 @@
+
+<ul id="note_list">
+<% @notes.notes.each do |note| %>
+  <li class = "note"><a href="/show/<%= note.guid %>"><%= note.title %></a></li>
+<% end %>
+</ul>
+
+<div class="notes_list">
+<% @notes.notes.each do |note| %>
+<div class = "note"><a href="/show/<%= note.guid %>"><%= note.title %></a></div>
+<% end %>
+</div>
