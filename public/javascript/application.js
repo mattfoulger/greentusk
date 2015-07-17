@@ -4,7 +4,6 @@ $(document).ready(function() {
   var preview = $("#preview");
 
   function updatePreview(){
-    console.log("this should be updating");
     preview.html(mdconverter.makeHtml(editor.val()));
   }
 
