@@ -1,0 +1,45 @@
+<div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group has-success has-feedback">
+                                <div class="col-sm-12">
+                                    <input type="search" class="form-control" id="inputEmail3" placeholder="Search">
+                                    <span class="fa fa-check form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav nav-justified nav-pills">
+                            <li>
+                                <a href="#">New</a>
+                            </li>
+                            <li>
+                                <a href="#">Save</a>
+                            </li>
+                            <li>
+                                <a href="#">Export as HTML</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-justify">
+                        <%= erb :'/notes/accordion' %>
+                    </div>
+                    <div class="col-md-10">
+                      
+                      <div class="editor-and-preview-container">
+                        <div class="editor-container">
+                          <textarea name="" id="editor"># Hello I'm writing Markdown! 
+                          </textarea>
+                        </div>
+                        <div class="preview-container">
+                          <div id="preview"></div>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+            </div>

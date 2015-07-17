@@ -131,6 +131,10 @@ put '/notes' do
   redirect '/notes'
 end
 
+get '/editor' do
+  erb :'editor'
+end
+
 
 
 

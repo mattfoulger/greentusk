@@ -11,6 +11,7 @@ $(function() {
 
   editor.on('keyup', function(){
    updatePreview();
+   console.log('keyup updatePreview');
   });
 
   var Accordion = function(el, multiple) {
@@ -44,8 +45,10 @@ $(function() {
     e.preventDefault();
     $.get(this.href).then(function(data)
     {
-      editor.text(data);
+      debugger
+      editor.val(data);
       updatePreview();
+      console.log('click accordion updatePreview');
     });
     return false;
   });
