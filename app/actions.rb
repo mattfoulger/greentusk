@@ -3,6 +3,7 @@
 ##
 require 'shotgun'
 require 'sinatra'
+require 'byebug'
 require_relative "../evernote_config"
 require_relative 'helpers'
 
@@ -76,11 +77,13 @@ get '/callback' do
 end
 
 get '/notes' do
+  
   notebook_guid = params['notebook_guid']
   if tags = params['tags']
     tags = tags.split(',')
   end
   @notes = notes(notebook_guid: notebook_guid, tags: tags)
+  byebug
   erb :'/notes/index'
 end
 
@@ -90,6 +93,10 @@ end
 
 get '/notes/:guid' do
   if @note = note(params[:guid])
+    if(request.xhr?)
+      content_type :json
+      return strip_content(@note.content).to_json
+    end
     erb :'notes/show'
   else
     erb :'errors/no_note_error'
