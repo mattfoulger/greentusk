@@ -10,34 +10,10 @@
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
         rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="/stylesheets/editor.css">
-        <script>
-          $(function() {
-            var Accordion = function(el, multiple) {
-              this.el = el || {};
-              this.multiple = multiple || false;
+        <script src="//cdn.jsdelivr.net/codemirror/3.14.0/codemirror.js"></script>
+        <script src="https://cdn.rawgit.com/showdownjs/showdown/1.2.0/dist/showdown.min.js"></script>
 
-              // Variables privadas
-              var links = this.el.find('.link');
-              // Evento
-              links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-            }
-
-            Accordion.prototype.dropdown = function(e) {
-              var $el = e.data.el;
-                $this = $(this),
-                $next = $this.next();
-
-              $next.slideToggle();
-              $this.parent().toggleClass('open');
-
-              if (!e.data.multiple) {
-                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-              };
-            } 
-
-            var accordion = new Accordion($('#accordion'), false);
-          });
-      </script>
+        <script type="text/javascript" src="/javascript/application.js"></script>   
     </head>
     
     <body>
@@ -93,7 +69,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 text-justify">
+                    <div class="col-md-2 text-justify">
                         <ul id= "accordion" class="accordion">
                             <li>
                                 <div class="link"><i class="fa fa-tag"></i>#markdown<i class="fa fa-chevron-down"></i></div>
@@ -284,8 +260,19 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-6"></div>
-                    <div class="col-md-4"></div>
+                    <div class="col-md-10">
+                      
+                      <div class="editor-and-preview-container">
+                        <div class="editor-container">
+                          <textarea name="" id="editor"># Hello I'm writing Markdown! 
+                          </textarea>
+                        </div>
+                        <div class="preview-container">
+                          <div id="preview"></div>
+                        </div>
+                      </div>
+
+                    </div>
                 </div>
             </div>
         </div>
