@@ -1582,7 +1582,7 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .container {
     width: 750px;
   }
@@ -1597,7 +1597,7 @@ pre code {
     margin-left: 0px;
     width: 1170px;
   }
-}
+}*/
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
@@ -5138,7 +5138,6 @@ a.thumbnail.active {
   padding: 15px 15px 15px 42px;
   color: #21271C;
   font-size: 16px;
-  /*font-weight: 700;*/
   border-bottom: 1px solid #CCC;
   position: relative;
   -webkit-transition: all 0.4s ease;
@@ -6864,4 +6863,41 @@ body {
 .cover .cover-image.cover-image-fixed {
   background-attachment: fixed;
 }
+
+
+
+
+.editor-and-preview-container{
+  padding: 1em;
+  width: 100%;
+  height: 100%;
+}
+.editor-container, .preview-container{
+  display:inline;
+  overflow: hidden;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+#editor{
+  display: inline-block;
+  width: 100%;
+  height: 500px;
+  resize: none;
+  padding: 1em;
+  line-height: 1.5;
+  
+  &:focus{
+    outline: none;
+  }
+}
+
+#preview{
+  width: 100%;
+  height: 500px;
+  border: 1px green solid;
+  padding: 0 1em;
+}
+
 /* PINGENDO COMMENT DO NOT REMOVE */
