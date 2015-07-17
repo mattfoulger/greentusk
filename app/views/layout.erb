@@ -10,6 +10,34 @@
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
         rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="/stylesheets/editor.css">
+        <script>
+          $(function() {
+            var Accordion = function(el, multiple) {
+              this.el = el || {};
+              this.multiple = multiple || false;
+
+              // Variables privadas
+              var links = this.el.find('.link');
+              // Evento
+              links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+            }
+
+            Accordion.prototype.dropdown = function(e) {
+              var $el = e.data.el;
+                $this = $(this),
+                $next = $this.next();
+
+              $next.slideToggle();
+              $this.parent().toggleClass('open');
+
+              if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+              };
+            } 
+
+            var accordion = new Accordion($('#accordion'), false);
+          });
+      </script>
     </head>
     
     <body>
@@ -40,9 +68,9 @@
                     <div class="col-md-6">
                         <form class="form-horizontal" role="form">
                             <div class="form-group has-success has-feedback">
-                                <div class="col-sm-2">
+                                <!-- <div class="col-sm-2">
                                     <label for="inputEmail3" class="control-label">SEARCH</label>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-10">
                                     <input type="search" class="form-control" id="inputEmail3" placeholder="Search">
                                     <span class="fa fa-check form-control-feedback"></span>
@@ -52,7 +80,7 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="nav nav-justified nav-pills">
-                            <li class="active">
+                            <li>
                                 <a href="#">New</a>
                             </li>
                             <li>
@@ -65,57 +93,41 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 text-justify">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="btn-group btn-group-lg">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> #Markit <span class="fa fa-caret-down"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Note 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                    <div class="col-md-3 text-justify">
+                        <ul id= "accordion" class="accordion">
+                            <li>
+                                <div class="link"><i class="fa fa-database"></i>#Markit<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="#">Note 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 4</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="list-group-item">
-                                <div class="btn-group btn-group-lg">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Notebook 1 <span class="fa fa-caret-down"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Note 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="btn-group btn-group-lg">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Notebook 2 <span class="fa fa-caret-down"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Note 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="btn-group btn-group-lg">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Notebook 3 <span class="fa fa-caret-down"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Note 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="btn-group btn-group-lg">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Notebook 4 <span class="fa fa-caret-down"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">Note 1</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li>
+                                <div class="link"><i class="fa fa-database"></i>#Markit<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="#">Note 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Note 4</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
