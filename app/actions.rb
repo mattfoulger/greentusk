@@ -4,6 +4,8 @@
 require 'shotgun'
 require 'sinatra'
 enable :sessions
+require 'nokogiri'
+
 
 # Load our dependencies and configuration settings
 # $LOAD_PATH.push(File.expand_path(File.dirname(__FILE__)))
@@ -65,7 +67,12 @@ helpers do
   end
 
   def format_content(string)
-    formatted_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
+  end
+
+  def strip_content(string)
+    xml_doc = Nokogiri::XML(string)
+    xml_doc.at_css("en-note").content
   end
 
   def all_tags
@@ -105,7 +112,11 @@ end
 # Index page
 ##
 get '/' do
-  erb :index
+  if session[:access_token]
+    redirect '/notes'
+  else
+    erb :index
+  end
 end
 
 ##
@@ -155,7 +166,7 @@ get '/callback' do
   begin
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
     redirect '/notes'
-  rescue => e
+  rescue
     @last_error = 'Error extracting access token'
     erb :'errors/oauth_error'
   end
@@ -199,12 +210,13 @@ post '/notes' do
 end
 
 put '/notes' do
-  edit_note = Evernote::EDAM::Type::Note.edit
+  edit_note = Evernote::EDAM::Type::Note.new
   edit_note.guid = params[:guid]
   edit_note.title = params[:title]
   edit_note.notebookGuid = params[:notebook_guid]
-  edit_note.tagNames = [params[:tags]]
+  # edit_note.tagNames = [params[:tags]]
   edit_note.content = format_content(params[:content])
+  binding.pry
   updated_note = note_store.updateNote(auth_token, edit_note)
   redirect '/notes'
 end

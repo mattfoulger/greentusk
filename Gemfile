@@ -11,6 +11,7 @@ gem 'oauth'
 gem 'evernote_oauth'
 gem 'puma'
 gem 'tux'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'pry'
