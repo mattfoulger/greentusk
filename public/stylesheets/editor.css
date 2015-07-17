@@ -5179,7 +5179,7 @@ a.thumbnail.active {
   display: none;
   background: #21271C;
   font-size: 14px;
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 300px;
 }
 
