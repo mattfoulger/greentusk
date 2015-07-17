@@ -4,6 +4,8 @@
 require 'shotgun'
 require 'sinatra'
 enable :sessions
+require 'nokogiri'
+
 
 # Load our dependencies and configuration settings
 # $LOAD_PATH.push(File.expand_path(File.dirname(__FILE__)))
@@ -65,7 +67,12 @@ helpers do
   end
 
   def format_content(string)
-    formatted_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
+  end
+
+  def strip_content(string)
+    xml_doc = Nokogiri::XML(string)
+    xml_doc.at_css("en-note").content
   end
 
   def all_tags
@@ -105,9 +112,12 @@ end
 # Index page
 ##
 get '/' do
-  erb :index
+  if session[:access_token]
+    redirect '/notes'
+  else
+    erb :index
+  end
 end
-
 
 ##
 # Reset the session 
@@ -127,17 +137,9 @@ get '/requesttoken' do
     redirect '/authorize'
   rescue => e
     @last_error = "Error obtaining temporary credentials: #{e.message}"
-    erb :error
+    erb :'errors/oauth_error'
   end
 end
-
-
-
-
-
-
-
-
 
 ##
 # Redirect the user to Evernote for authoriation
@@ -163,52 +165,39 @@ get '/callback' do
   session[:oauth_verifier] = params['oauth_verifier']
   begin
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    redirect '/load'
-  rescue => e
+    redirect '/notes'
+  rescue
     @last_error = 'Error extracting access token'
     erb :'errors/oauth_error'
   end
 end
 
-
-##
-# Access the user's Evernote account and display account data
-##
-get '/load' do
-  begin
-
-    session[:notebooks] = notebooks.map(&:name)
-    session[:username] = en_user.username
-    session[:tags] = all_tags
-    session[:markit_tag] = create_tag("markit")
-    redirect '/notes/list'
-  rescue => e
-    @last_error = "Error listing notebooks: #{e.message}"
-    erb :'errors/oauth_error'
-  end
-end
-
-get '/notes/list' do
+get '/notes' do
   notebook_guid = params['notebook_guid']
   if tags = params['tags']
     tags = tags.split(',')
   end
   @notes = notes(notebook_guid: notebook_guid, tags: tags)
-  erb :list
+  erb :'/notes/index'
 end
 
 get '/notes/new' do
-  @notebooks = notebooks
-  erb :new
+  erb :'notes/new'
 end
 
 get '/notes/:guid' do
   if @note = note(params[:guid])
-    erb :show
+    erb :'notes/show'
   else
     erb :'errors/no_note_error'
   end 
 end
+
+get '/notes/:guid/edit' do
+  @note = note(params[:guid])
+  erb :'notes/edit'
+end
+
 
 post '/notes' do
   new_note = Evernote::EDAM::Type::Note.new
@@ -217,7 +206,21 @@ post '/notes' do
   new_note.tagNames = ["markit"]
   new_note.content = format_content("")
   created_note = note_store.createNote(auth_token, new_note)
-  redirect '/notes/list'
+  redirect '/notes'
 end
+
+put '/notes' do
+  edit_note = Evernote::EDAM::Type::Note.new
+  edit_note.guid = params[:guid]
+  edit_note.title = params[:title]
+  edit_note.notebookGuid = params[:notebook_guid]
+  # edit_note.tagNames = [params[:tags]]
+  edit_note.content = format_content(params[:content])
+  binding.pry
+  updated_note = note_store.updateNote(auth_token, edit_note)
+  redirect '/notes'
+end
+
+
 
 
