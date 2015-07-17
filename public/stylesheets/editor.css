@@ -6887,6 +6887,18 @@ body {
   resize: none;
   padding: 1em;
   line-height: 1.5;
+  margin-right: 10px;
+  outline: none;
+  background: #21271C;
+  color: #d9d9d9;
+  font-size: 12pt;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border: 0px solid #000000;
+  -webkit-box-shadow: inset -2px -2px 0px 0px #377106;
+  -moz-box-shadow: inset -2px -2px 0px 0px #377106;
+  box-shadow: inset -1px -1px 1px 0px #377106;
   
   &:focus{
     outline: none;
@@ -6896,8 +6908,14 @@ body {
 #preview{
   width: 100%;
   height: 500px;
-  border: 1px green solid;
-  padding: 0 1em;
+  padding: 10px;
+  background-color: #d9d9d9;
+  margin-left: 10px;
+  overflow: scroll;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border: 0px solid #000000;
 }
 
 /* PINGENDO COMMENT DO NOT REMOVE */
