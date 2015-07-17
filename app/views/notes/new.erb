@@ -8,8 +8,8 @@
   <div>
     <label>Notebook:</label>
     <select name="notebook_guid">
-      <% notebooks.each do |notebook| %>
-      <option value="<%= notebook.guid %>"><%= notebook.name %></option>
+      <% all_notebooks.each_pair do |k, v| %>
+      <option value="<%= k %>"><%= v %></option>
       <% end %>
     </select>
   </div>

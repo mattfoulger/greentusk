@@ -1,0 +1,9 @@
+<ul id= "accordion" class="accordion">
+    <% all_notebooks.each_pair do |k, v| %>
+    <li>
+        <div class="link"><i class="fa fa-tag"></i><%= v %><i class="fa fa-chevron-down"></i></div>
+        <% @notes = notes(notebook_guid: k) %>
+        <%= erb :'notes/index' %>
+    </li>
+    <% end %>
+</ul>

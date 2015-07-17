@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   var mdconverter = new showdown.Converter();
   var editor = $("#editor");
   var preview = $("#preview");
@@ -38,4 +38,24 @@ $(document).ready(function() {
 
   var accordion = new Accordion($('#accordion'), false);
 
+  $("#accordion").on('click', 'a.note-link', function(e)
+  {
+    e.stopPropagation();
+    e.preventDefault();
+    $.get(this.href).then(function(data)
+    {
+      editor.text(data);
+      updatePreview();
+    });
+    return false;
+  });
+
+  $(document).ajaxStart(function(){
+    console.log('start ajax');
+    $(".submenu a").css({'cursor' : 'wait'});
+  });
+  $(document).ajaxStop(function(){
+    console.log('stopped ajax');
+    $(".submenu a").css({'cursor' : 'default'});
+  });
 });

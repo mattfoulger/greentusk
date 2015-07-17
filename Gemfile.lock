@@ -18,7 +18,10 @@ GEM
     backports (3.6.5)
     bond (0.5.1)
     builder (3.2.2)
+    byebug (5.0.0)
+      columnize (= 0.9.0)
     coderay (1.1.0)
+    columnize (0.9.0)
     evernote-thrift (1.25.1)
     evernote_oauth (0.2.3)
       evernote-thrift
@@ -84,6 +87,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  byebug
   evernote_oauth
   nokogiri
   oauth

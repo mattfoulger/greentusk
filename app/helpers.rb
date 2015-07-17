@@ -23,8 +23,12 @@ helpers do
     user_store.getUser(auth_token)
   end
 
-  def notebooks
-    @notebooks ||= note_store.listNotebooks(auth_token)
+  def all_notebooks
+    hash = Hash.new
+    note_store.listNotebooks(auth_token).each do |notebook|
+      hash[notebook.guid] = notebook.name
+    end
+    hash
   end
 
   def notes(options = {})
