@@ -117,7 +117,7 @@ post '/notes' do
   new_note.title = params[:title]
   new_note.notebookGuid = params[:notebook_guid]
   new_note.tagNames = ["markdown"]
-  new_note.content = format_content("")
+  new_note.content = format_content(params[:content])
   created_note = note_store.createNote(auth_token, new_note)
   unless (request.xhr?)
     redirect '/editor'

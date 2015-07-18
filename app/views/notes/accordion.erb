@@ -2,7 +2,7 @@
     
     <li>
         <div class="link"><i class="fa fa-tag"></i>#markdown<i class="fa fa-chevron-down"></i></div>
-        <% @notes = notes(tags: [find_tag("markdown")]) %>
+        <% @notes = notes(tags: [create_tag("markdown")]) %>
         <%= erb :'notes/index' %>
     </li>
 
