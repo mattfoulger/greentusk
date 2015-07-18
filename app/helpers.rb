@@ -1,5 +1,6 @@
 require_relative "../evernote_config"
 require 'nokogiri'
+require 'base64'
 
 
 helpers do
@@ -87,7 +88,14 @@ helpers do
     tag_guid
   end
 
-
+  def create_file(base64)
+    converted_string = Base64.decode64(base64)
+    puts converted_string
+    converted_string = "<!DOCTYPE html>\n<html>\n<body>\n" + converted_string + "\n</body>\n</html>"
+    puts converted_string
+    @new_file = File.open("markdown.html", "w") { |file| file.write(converted_string) }
+    "markdown.html"
+  end
 
 
   # def total_note_count
