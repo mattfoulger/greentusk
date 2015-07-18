@@ -60,8 +60,8 @@ $(function() {
     // get the form data
         // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
-            'title'              : $('input[name=title]').val(),
-            'notebook_guid'      : $('#notebook_guid_select').val(),
+            'title'              : $("#newModal").find(".titlefield").val(),
+            'notebook_guid'      : $("#newModal").find(".notebook_guid_select").val(),
             'content'            : ""
         };
         debugger
@@ -89,6 +89,8 @@ $(function() {
     console.log(formData)
 
   });
+
+// FOR SAVE FUNCTION
 
   $("#savenoteform").submit(function(e)
   {
@@ -129,12 +131,16 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
   {
     // get the form data
         // there are many ways to get this data using jQuery (you can use the class or id also)
+        
+        // var formData = new FormData(this);
+        // debugger
+        // formData.append("content", editor.val());
+
         var formData = {
-            'title'              : $('input[name=title]').val(),
-            'notebook_guid'      : $('#notebook_guid_select').val(),
+            'title'              : $("#saveasModal").find(".titlefield").val(),
+            'notebook_guid'      : $("#saveasModal").find(".notebook_guid_select").val(),
             'content'            : editor.val()
         };
-        debugger
 
         // process the form
         $.ajax({
@@ -146,7 +152,7 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
         })
             // using the done promise callback
             .done(function(data) {
-                $("#newModal").modal('hide');
+                $("#saveasModal").modal('hide');
                 // log data to the console so we can see
                 console.log(data);
                 insertNote(data);
