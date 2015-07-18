@@ -11,6 +11,7 @@ $(function() {
 
   editor.on('keyup', function(){
    updatePreview();
+   console.log('keyup updatePreview');
   });
 
   var Accordion = function(el, multiple) {
@@ -44,11 +45,53 @@ $(function() {
     e.preventDefault();
     $.get(this.href).then(function(data)
     {
-      editor.text(data);
+      debugger
+      editor.val(data);
       updatePreview();
+      console.log('click accordion updatePreview');
     });
     return false;
   });
+
+  $("#newnoteform").submit(function(e)
+  {
+    // get the form data
+        // there are many ways to get this data using jQuery (you can use the class or id also)
+        var formData = {
+            'title'              : $('input[name=title]').val(),
+            'notebook_guid'      : $('input[name=notebook_guid]').val()
+        };
+
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/notes', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+                        encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+                $("#newModal").modal('hide');
+                // log data to the console so we can see
+                console.log(data);
+                insertNote(data);
+                // here we will handle errors and validation messages
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+
+    console.log('form submission')
+  });
+
+  function insertNote(data) {
+    var notebook_guid = data.notebook_guid;
+    var title = data.title;
+    var guid = data.guid;
+    var newnote = "<li id='"+guid+"'><a class='note-link' href='/notes/"+guid+"'>"+title+"</a></li>";
+    $("#"+notebook_guid).siblings('ul').prepend(newnote);
+  }
 
   $(document).ajaxStart(function(){
     console.log('start ajax');

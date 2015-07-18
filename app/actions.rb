@@ -83,7 +83,6 @@ get '/notes' do
     tags = tags.split(',')
   end
   @notes = notes(notebook_guid: notebook_guid, tags: tags)
-  byebug
   erb :'/notes/index'
 end
 
@@ -113,22 +112,34 @@ post '/notes' do
   new_note = Evernote::EDAM::Type::Note.new
   new_note.title = params[:title]
   new_note.notebookGuid = params[:notebook_guid]
-  new_note.tagNames = ["markit"]
+  new_note.tagNames = ["markdown"]
   new_note.content = format_content("")
   created_note = note_store.createNote(auth_token, new_note)
-  redirect '/notes'
+  unless (request.xhr?)
+    redirect '/editor'
+  end
+  # TODO: error message handling
+  # content_type :json
+  hash = {guid: created_note.guid, title: created_note.title, notebook_guid: created_note.notebookGuid}
+  hash.to_json
 end
 
 put '/notes' do
+  # check if note exists first
+  # if note()
+
   edit_note = Evernote::EDAM::Type::Note.new
   edit_note.guid = params[:guid]
   edit_note.title = params[:title]
   edit_note.notebookGuid = params[:notebook_guid]
   # edit_note.tagNames = [params[:tags]]
   edit_note.content = format_content(params[:content])
-  binding.pry
   updated_note = note_store.updateNote(auth_token, edit_note)
-  redirect '/notes'
+  # redirect '/notes'
+end
+
+get '/editor' do
+  erb :'editor'
 end
 
 
