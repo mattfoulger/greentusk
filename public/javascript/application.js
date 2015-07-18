@@ -61,8 +61,9 @@ $(function() {
         // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
             'title'              : $('input[name=title]').val(),
-            'notebook_guid'      : $('input[name=notebook_guid]').val()
+            'notebook_guid'      : $('#notebook_guid_select').val()
         };
+        debugger
 
         // process the form
         $.ajax({
@@ -84,14 +85,13 @@ $(function() {
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
 
-    console.log('form submission')
+    console.log(formData)
+
   });
 
   $("#savenoteform").submit(function(e)
   {
-    // var content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + editor.val() + "</en-note>"
     
-    debugger
     // get the form data
         // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
