@@ -6,9 +6,9 @@
     </div>
     <div>
     <label>Notebook:</label>
-    <select name="notebook_guid">
+    <select id="notebook_guid_select" name="notebook_guid">
       <% all_notebooks.each_pair do |k, v| %>
-      <option value="<%= k %>"><%= v %></option>
+      <option value='<%= k %>'><%= v %></option>
       <% end %>
     </select>
     </div>
