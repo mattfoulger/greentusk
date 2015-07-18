@@ -1,45 +1,68 @@
 <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group has-success has-feedback">
-                                <div class="col-sm-12">
-                                    <input type="search" class="form-control" id="inputEmail3" placeholder="Search">
-                                    <span class="fa fa-check form-control-feedback"></span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="nav nav-justified nav-pills">
-                            <li>
-                                <a href="#">New</a>
-                            </li>
-                            <li>
-                                <a href="#">Save</a>
-                            </li>
-                            <li>
-                                <a href="#">Export as HTML</a>
-                            </li>
-                        </ul>
+    <div class="row">
+        <div class="col-lg-2 col-md-3">
+            <form class="form-horizontal" role="form">
+                <div class="form-group has-success has-feedback">
+                    <div class="col-sm-12">
+                        <input type="search" class="form-control" id="inputEmail3" placeholder="Search">
+                        <span class="fa fa-check form-control-feedback"></span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 text-justify">
-                        <%= erb :'/notes/accordion' %>
-                    </div>
-                    <div class="col-md-10">
-                      
-                      <div class="editor-and-preview-container">
-                        <div class="editor-container">
-                          <textarea name="" id="editor"># Hello I'm writing Markdown! 
-                          </textarea>
-                        </div>
-                        <div class="preview-container">
-                          <div id="preview"></div>
-                        </div>
-                      </div>
+            </form>
+        </div>
+        <div class="col-lg-5 col-md-4">
+            <ul class="nav nav-left nav-pills">
+                <li>
+                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#newModal">
+                    New
+                    </button>
+                </li>
+                <li>
+                    <form action= '/notes'>
+                        <input type="hidden" name="_method" value="PUT" />
+                        <input value="Save" type="submit" class="btn btn-primary btn-md">
+                        </input>
+                    </form>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#saveModal">
+                    Save As
+                    </button>
+                    
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-5 col-md-5">
+            <ul class="nav nav-justified nav-pills">
+                <li>
+                    <a href="#">Export as HTML</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-md-3">
+            <%= erb :'/notes/accordion' %>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <textarea name="" id="editor"># Hello I'm writing Markdown! 
+            </textarea>
+        </div>
+        <div class="col-lg-5 col-md-5">
+            <div id="preview"></div>
+        </div>  
+    </div>
+</div>
 
-                    </div>
-                </div>
-            </div>
+
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="newModalLabel">New Note</h4>
+      </div>
+      <%= erb :'notes/new' %>
+    </div>
+  </div>
+</div>

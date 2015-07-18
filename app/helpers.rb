@@ -42,7 +42,8 @@ helpers do
     spec = Evernote::EDAM::NoteStore::NotesMetadataResultSpec.new
     spec.includeTitle = true
     
-    note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
+    notes_list = note_store.findNotesMetadata(auth_token, filter, 0, 100, spec)
+    notes_list.notes.reverse
   end
 
   def note(guid)

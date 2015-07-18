@@ -1,18 +1,20 @@
-<h1>New note</h1>
-
-<form method="post" action="/notes">
-  <div>
-    <label>Note title:</label>
-    <input type="text" name="title" value="Untitled note">
-  </div>
-  <div>
+<form id="newnoteform" method="post" action="/notes">
+  <div class="modal-body">
+    <div>
+        <label>Note title:</label>
+        <input type="text" name="title" value="Untitled note">
+    </div>
+    <div>
     <label>Notebook:</label>
     <select name="notebook_guid">
       <% all_notebooks.each_pair do |k, v| %>
       <option value="<%= k %>"><%= v %></option>
       <% end %>
     </select>
+    </div>
   </div>
-  <div>
-    <input type="submit" value="Submit" >
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+    <input type="submit" value="Create note" class="btn btn-primary"></input>
+  </div>
 </form>
