@@ -47,8 +47,6 @@ $(function() {
   } 
 
   var accordion = new Accordion($('#accordion'), false);
-  var currentNoteGuid = "0";
-  var currentNoteTitle = "no title";
 
   $("#accordion").on('click', 'a.note-link', function(e)
   {
@@ -63,6 +61,9 @@ $(function() {
     currentNoteTitle = $(this).text();
     return false;
   });
+
+  var currentNoteGuid = "0";
+  var currentNoteTitle = "no title";
 
   $("#newModal").find(".newnoteform").submit(function(e)
   {
