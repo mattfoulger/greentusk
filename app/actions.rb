@@ -125,17 +125,19 @@ post '/notes' do
 end
 
 put '/notes' do
-  # check if note exists first
-  # if note()
-
-  edit_note = Evernote::EDAM::Type::Note.new
-  edit_note.guid = params[:guid]
-  edit_note.title = params[:title]
-  edit_note.notebookGuid = params[:notebook_guid]
+  # TODO: check if note exists first
+  edited_note = Evernote::EDAM::Type::Note.new
+  edited_note.guid = params[:guid]
+  edited_note.content = format_content(params[:content])
+  edited_note.title = params[:title]
+  # @edited_note.notebookGuid = params[:notebook_guid]
   # edit_note.tagNames = [params[:tags]]
-  edit_note.content = format_content(params[:content])
-  updated_note = note_store.updateNote(auth_token, edit_note)
-  # redirect '/notes'
+  updated_note = note_store.updateNote(auth_token, edited_note)
+  unless (request.xhr?)
+    redirect '/editor'
+  end
+  hash = {guid: updated_note.guid, title: updated_note.title, notebook_guid: updated_note.notebookGuid}
+  hash.to_json
 end
 
 get '/editor' do

@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="row">
         <div class="col-lg-2 col-md-3">
@@ -18,7 +19,7 @@
                     </button>
                 </li>
                 <li>
-                    <form action= '/notes'>
+                    <form id="savenoteform" action= '/notes'>
                         <input type="hidden" name="_method" value="PUT" />
                         <input value="Save" type="submit" class="btn btn-primary btn-md">
                         </input>
@@ -61,6 +62,18 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="newModalLabel">New Note</h4>
+      </div>
+      <%= erb :'notes/new' %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="saveModalLabel">Save New Note</h4>
       </div>
       <%= erb :'notes/new' %>
     </div>
