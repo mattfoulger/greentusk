@@ -2,10 +2,19 @@ $(function() {
   var mdconverter = new showdown.Converter();
   var editor = $("#editor");
   var preview = $("#preview");
+  var exportHTMLbutton = $("#exportHTMLbutton");
+
+  function convertEditorContents(){
+    return mdconverter.makeHtml(editor.val());
+  }
 
   function updatePreview(){
-    preview.html(mdconverter.makeHtml(editor.val()));
+    preview.html(convertEditorContents);
   }
+
+  exportHTMLbutton.on('click', function(){
+    document.location.href='/html/'+window.btoa(convertEditorContents())
+  });
 
   updatePreview();
 
@@ -64,7 +73,6 @@ $(function() {
             'notebook_guid'      : $("#newModal").find(".notebook_guid_select").val(),
             'content'            : ""
         };
-        debugger
 
         // process the form
         $.ajax({
@@ -130,12 +138,7 @@ $(function() {
 $("#saveasModal").find(".newnoteform").submit(function(e)
   {
     // get the form data
-        // there are many ways to get this data using jQuery (you can use the class or id also)
-        
-        // var formData = new FormData(this);
-        // debugger
-        // formData.append("content", editor.val());
-
+   
         var formData = {
             'title'              : $("#saveasModal").find(".titlefield").val(),
             'notebook_guid'      : $("#saveasModal").find(".notebook_guid_select").val(),
