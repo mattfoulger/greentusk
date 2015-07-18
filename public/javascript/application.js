@@ -55,13 +55,14 @@ $(function() {
     return false;
   });
 
-  $("#newnoteform").submit(function(e)
+  $("#newModal").find(".newnoteform").submit(function(e)
   {
     // get the form data
         // there are many ways to get this data using jQuery (you can use the class or id also)
         var formData = {
             'title'              : $('input[name=title]').val(),
-            'notebook_guid'      : $('#notebook_guid_select').val()
+            'notebook_guid'      : $('#notebook_guid_select').val(),
+            'content'            : ""
         };
         debugger
 
@@ -121,6 +122,45 @@ $(function() {
 
     console.log('form submission')
   });
+
+// FOR SAVE AS FUNCTION
+
+$("#saveasModal").find(".newnoteform").submit(function(e)
+  {
+    // get the form data
+        // there are many ways to get this data using jQuery (you can use the class or id also)
+        var formData = {
+            'title'              : $('input[name=title]').val(),
+            'notebook_guid'      : $('#notebook_guid_select').val(),
+            'content'            : editor.val()
+        };
+        debugger
+
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/notes', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+                        encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+                $("#newModal").modal('hide');
+                // log data to the console so we can see
+                console.log(data);
+                insertNote(data);
+                // here we will handle errors and validation messages
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+
+    console.log(formData)
+
+  });
+
+
 
   function insertNote(data) {
     var notebook_guid = data.notebook_guid;

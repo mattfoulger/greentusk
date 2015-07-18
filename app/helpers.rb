@@ -82,7 +82,7 @@ helpers do
       tag.name = tag_name
       created_tag = note_store.createTag(auth_token, tag)
       tag_guid = created_tag.guid
-      session[:tags][tag_guid] = tag_name
+      # session[:tags][tag_guid] = tag_name
     end
     tag_guid
   end
