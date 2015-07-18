@@ -8,8 +8,12 @@ require_relative "../evernote_config"
 require_relative 'helpers'
 
 
-before "/notes" do
+before "/editor" do
   redirect '/' unless session[:access_token]
+end
+
+get '/editor' do
+  erb :'editor'
 end
 
 ##
@@ -17,9 +21,9 @@ end
 ##
 get '/' do
   if session[:access_token]
-    redirect '/notes'
+    redirect '/editor'
   else
-    erb :index
+    erb :index, layout: false
   end
 end
 
@@ -69,7 +73,7 @@ get '/callback' do
   session[:oauth_verifier] = params['oauth_verifier']
   begin
     session[:access_token] = session[:request_token].get_access_token(:oauth_verifier => session[:oauth_verifier])
-    redirect '/notes'
+    redirect '/editor'
   rescue
     @last_error = 'Error extracting access token'
     erb :'errors/oauth_error'
@@ -140,9 +144,7 @@ put '/notes' do
   hash.to_json
 end
 
-get '/editor' do
-  erb :'editor'
-end
+
 
 
 
