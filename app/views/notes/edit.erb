@@ -13,8 +13,8 @@
       <option value="<%= notebook.guid %>" 
         <% if notebook.guid == @note.notebookGuid %>
           selected
-        <% end %>
-      ><%= notebook.name %></option>
+        <% end %>>
+      <%= notebook.name %></option>
       <% end %>
     </select>
   </div>

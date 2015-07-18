@@ -38,6 +38,8 @@ $(function() {
   } 
 
   var accordion = new Accordion($('#accordion'), false);
+  var currentNoteGuid = "0";
+  var currentNoteTitle = "no title";
 
   $("#accordion").on('click', 'a.note-link', function(e)
   {
@@ -45,11 +47,11 @@ $(function() {
     e.preventDefault();
     $.get(this.href).then(function(data)
     {
-      debugger
       editor.val(data);
       updatePreview();
-      console.log('click accordion updatePreview');
     });
+    currentNoteGuid = $(this).parent().attr('id');
+    currentNoteTitle = $(this).text();
     return false;
   });
 
@@ -76,6 +78,41 @@ $(function() {
                 // log data to the console so we can see
                 console.log(data);
                 insertNote(data);
+                // here we will handle errors and validation messages
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+
+    console.log('form submission')
+  });
+
+  $("#savenoteform").submit(function(e)
+  {
+    // var content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + editor.val() + "</en-note>"
+    
+    debugger
+    // get the form data
+        // there are many ways to get this data using jQuery (you can use the class or id also)
+        var formData = {
+            'guid'               : currentNoteGuid,
+            'title'              : currentNoteTitle,
+            'content'            : editor.val()
+        };
+
+        // process the form
+        $.ajax({
+            type        : 'PUT', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/notes', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+                        encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+                $("#newModal").modal('hide');
+                // log data to the console so we can see
+                console.log(data);
                 // here we will handle errors and validation messages
             });
 
