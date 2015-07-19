@@ -183,8 +183,10 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
     var newnote = "<li><a id='"+guid+"' class='current' href='/notes/"+guid+"'>"+title+"</a></li>";
     $(".submenu a.current").removeClass("current");
     $("#"+notebook_guid).siblings('ul').prepend(newnote);
-    $("#"+notebook_guid).dropdown;
-    $("a.current").ScrollTo();
+    
+    // // TO DO: open notebook in accordion and scroll to new note
+    // $("#"+notebook_guid).dropdown;
+    // $("a.current").ScrollTo();
   }
 
   $(document).ajaxStart(function(){
