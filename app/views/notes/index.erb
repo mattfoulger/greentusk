@@ -1,5 +1,5 @@
 <ul class="submenu">
 <% @notes.each do |note| %>
-  <li id="<%= note.guid %>"><a class="note-link" href="/notes/<%= note.guid %>"><%= note.title %></a></li>
+  <li><a id="<%= note.guid %>" href="/notes/<%= note.guid %>"><%= note.title %></a></li>
 <% end %>
 </ul>

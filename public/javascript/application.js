@@ -48,7 +48,7 @@ $(function() {
 
   var accordion = new Accordion($('#accordion'), false);
 
-  $("#accordion").on('click', 'a.note-link', function(e)
+  $("#accordion").on('click', 'a', function(e)
   {
     e.stopPropagation();
     e.preventDefault();
@@ -57,8 +57,10 @@ $(function() {
       editor.val(data);
       updatePreview();
     });
-    currentNoteGuid = $(this).parent().attr('id');
+    currentNoteGuid = $(this).attr('id');
     currentNoteTitle = $(this).text();
+    $(".submenu a.current").removeClass("current");
+    $(this).addClass("current");
     return false;
   });
 
@@ -170,7 +172,7 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
 
   });
 
-$('[type="submit"]').on('click', function () {
+  $('[type="submit"]').on('click', function () {
                   $('#success').show().delay(5000).fadeOut();
                 });
 
@@ -178,8 +180,11 @@ $('[type="submit"]').on('click', function () {
     var notebook_guid = data.notebook_guid;
     var title = data.title;
     var guid = data.guid;
-    var newnote = "<li id='"+guid+"'><a class='note-link' href='/notes/"+guid+"'>"+title+"</a></li>";
+    var newnote = "<li><a id='"+guid+"' class='current' href='/notes/"+guid+"'>"+title+"</a></li>";
+    $(".submenu a.current").removeClass("current");
     $("#"+notebook_guid).siblings('ul').prepend(newnote);
+    $("#"+notebook_guid).dropdown;
+    $("a.current").ScrollTo();
   }
 
   $(document).ajaxStart(function(){
