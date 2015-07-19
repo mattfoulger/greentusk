@@ -8,11 +8,11 @@ require_relative "../evernote_config"
 require_relative 'helpers'
 
 
-before "/editor" do
+before "/editor/?" do
   redirect '/' unless session[:access_token]
 end
 
-get '/editor' do
+get '/editor/?' do
   erb :'editor'
 end
 
@@ -30,7 +30,7 @@ end
 ##
 # Reset the session 
 ##
-get '/reset' do
+get '/reset/?' do
   session.clear
   redirect '/'
 end
@@ -147,9 +147,13 @@ put '/notes' do
   hash.to_json
 end
 
-get '/html/:base64' do 
+get '/html/:title/?:base64?' do 
   check_login
-    send_file(create_file(params[:base64]), disposition: "attachment", filename: "markdown.html")
+  if params[:base64]
+    send_file(create_file(params[:title], params[:base64]), disposition: "attachment", filename: html_filename(params[:title]))
+  else
+    redirect '/editor'
+  end
 end
 
 

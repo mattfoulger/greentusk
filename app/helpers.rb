@@ -94,13 +94,21 @@ helpers do
     tag_guid
   end
 
-  def create_file(base64)
+  # Helper methods for HTML file creation
+
+  def create_file(title, base64)
     converted_string = Base64.decode64(base64)
-    puts converted_string
     converted_string = "<!DOCTYPE html>\n<html>\n<body>\n" + converted_string + "\n</body>\n</html>"
-    puts converted_string
-    @new_file = File.open("markdown.html", "w") { |file| file.write(converted_string) }
-    "markdown.html"
+    @new_file = File.open(html_filename(title), "w") { |file| file.write(converted_string) }
+    html_filename(title)
+  end
+
+  def html_filename(filename)
+    filename = Base64.decode64(filename)
+    # filename.gsub(/[^\w\s_-]+/, '')
+    #         .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
+    #         .gsub(/\s+/, '_')
+    filename = filename + ".html"
   end
 
 
