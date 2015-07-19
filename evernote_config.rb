@@ -9,7 +9,7 @@ require "evernote_oauth"
 # Fill these in with the consumer key and consumer secret that you obtained
 # from Evernote. If you do not have an Evernote API key, you may request one
 # from http://dev.evernote.com/documentation/cloud/
-OAUTH_CONSUMER_KEY = "elliotj112"
-OAUTH_CONSUMER_SECRET = "07d7756ec50451e0"
+OAUTH_CONSUMER_KEY = "elliotj112-3086"
+OAUTH_CONSUMER_SECRET = "4dc372b65a0fc6e0"
 
 SANDBOX = true
