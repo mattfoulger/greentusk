@@ -4,6 +4,9 @@ $(function() {
   var preview = $("#preview");
   var exportHTMLbutton = $("#exportHTMLbutton");
 
+  var currentNoteGuid = "0";
+  var currentNoteTitle = "Untitled note";
+
   function convertEditorContents(){
     return mdconverter.makeHtml(editor.val());
   }
@@ -13,7 +16,11 @@ $(function() {
   }
 
   exportHTMLbutton.on('click', function(){
-    document.location.href='/html/'+window.btoa(convertEditorContents())
+    if (editor.val() == "") {
+      // error handling
+    } else {
+      document.location.href='/html/'+window.btoa(currentNoteTitle)+'/'+window.btoa(convertEditorContents())
+    }
   });
 
   updatePreview();
@@ -64,8 +71,7 @@ $(function() {
     return false;
   });
 
-  var currentNoteGuid = "0";
-  var currentNoteTitle = "no title";
+  
 
   $("#newModal").find(".newnoteform").submit(function(e)
   {
@@ -90,15 +96,12 @@ $(function() {
                 $("#newModal").modal('hide');
                 // log data to the console so we can see
                 console.log(data);
+                // TODO: handle errors and validation messages
                 insertNote(data);
-                // here we will handle errors and validation messages
             });
 
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
-
-    console.log(formData)
-
   });
 
 // FOR SAVE FUNCTION
@@ -127,13 +130,11 @@ $(function() {
                 $("#newModal").modal('hide');
                 // log data to the console so we can see
                 console.log(data);
-                // here we will handle errors and validation messages
-            });
+                // TODO: handle errors and validation messages
 
+            });
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
-
-    console.log('form submission')
   });
 
 // FOR SAVE AS FUNCTION
@@ -161,17 +162,16 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
                 $("#saveasModal").modal('hide');
                 // log data to the console so we can see
                 console.log(data);
+                // TODO: handle errors and validation messages
                 insertNote(data);
-                // here we will handle errors and validation messages
             });
-
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
-
-    console.log(formData)
-
   });
 
+
+  // TODO: create a function for more versatile notifications
+  // TODO: call the function from AJAX .done callbacks to display errors or success
   $('[type="submit"]').on('click', function () {
                   $('#success').show().delay(5000).fadeOut();
                 });
