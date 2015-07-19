@@ -98,11 +98,11 @@ end
 get '/notes/:guid' do
   check_login
   if @note = note(params[:guid])
-    if(request.xhr?)
+    # if(request.xhr?)
       content_type :json
       return strip_content(@note.content).to_json
-    end
-    erb :'notes/show'
+    # end
+    # erb :'notes/show'
   else
     erb :'errors/no_note_error'
   end 
