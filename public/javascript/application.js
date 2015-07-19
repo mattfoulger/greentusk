@@ -80,6 +80,8 @@ $(function() {
     // Toggle the styles to show the selected note
     $(".submenu a.current").removeClass("current");
     selectedNote.addClass("current");
+    // Push note title to space above editor
+    $("#activenotetitle").text(currentNoteTitle);
   }
 
   // Insert a note into the DOM and load it up using loadNote

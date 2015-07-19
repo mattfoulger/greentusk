@@ -20,13 +20,40 @@
         <div class="col-lg-2 col-md-3">
             <%= erb :'/notes/accordion' %>
         </div>
-        <div class="col-lg-4 col-md-4">
-            <textarea name="" id="editor">## Welcome to Greentusk: your Evernote markdown editor! 
-            </textarea>
+        <div class="col-lg-10 col-md-9">
+            <div class="row titlerow">
+                <div class="col-lg-12 col-md-12">
+                    <p id="activenotetitle">Welcome to Greentusk, your Evernote markdown editor!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <textarea name="" id="editor">
+## GREENTUSK (version 1.0)
+
+Greentusk is a markdown editor for Evernote users! Using the Evernote API, users can:
+
++ 1) access their notes,
++ 2) edit them with markdown,
++ 3) live preview the changes in HTML,
++ 4) save their changes,
++ 5) create a new note with their changes and…
++ 6) export their markdown into an HTML file!
+
+###TEAM BREAKDOWN:
+This project was created using overall peer coding practices, with each person focusing on assigned features.
+
++ Matt Foulger
++ Siv Padhy
++ Jessica Elliot
+                    </textarea>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div id="preview"></div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-5 col-md-5">
-            <div id="preview"></div>
-        </div>  
+          
     </div>
 </div>
 
