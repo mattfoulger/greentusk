@@ -170,7 +170,9 @@ $("#saveasModal").find(".newnoteform").submit(function(e)
 
   });
 
-
+$('[type="submit"]').on('click', function () {
+                  $('#success').show().delay(5000).fadeOut();
+                });
 
   function insertNote(data) {
     var notebook_guid = data.notebook_guid;

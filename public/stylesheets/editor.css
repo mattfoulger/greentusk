@@ -6918,4 +6918,16 @@ body {
   border: 0px solid #000000;
 }
 
+#success {
+/*    border:solid 1px red;*/
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: #6db134;
+    border-color: #619d2e;
+    display:none;
+}
+
 /* PINGENDO COMMENT DO NOT REMOVE */
