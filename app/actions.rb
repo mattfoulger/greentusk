@@ -145,7 +145,11 @@ put '/notes' do
 end
 
 get '/html/:base64' do
-  send_file(create_file(params[:base64]), disposition: "attachment", filename: "markdown.html")
+  if auth_token
+    send_file(create_file(params[:base64]), disposition: "attachment", filename: "markdown.html")
+  else 
+    redirect '/requesttoken'
+  end
 end
 
 
