@@ -55,6 +55,12 @@ helpers do
     end
   end
 
+  def check_login
+    if auth_token == nil
+      redirect '/requesttoken'
+    end
+  end
+
   def format_content(string)
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">\n<en-note>" + string + "</en-note>"
   end

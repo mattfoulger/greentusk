@@ -81,7 +81,7 @@ get '/callback' do
 end
 
 get '/notes' do
-  
+  check_login
   notebook_guid = params['notebook_guid']
   if tags = params['tags']
     tags = tags.split(',')
@@ -91,10 +91,12 @@ get '/notes' do
 end
 
 get '/notes/new' do
+  check_login
   erb :'notes/new'
 end
 
 get '/notes/:guid' do
+  check_login
   if @note = note(params[:guid])
     if(request.xhr?)
       content_type :json
@@ -107,6 +109,7 @@ get '/notes/:guid' do
 end
 
 get '/notes/:guid/edit' do
+  check_login
   @note = note(params[:guid])
   erb :'notes/edit'
 end
@@ -144,12 +147,9 @@ put '/notes' do
   hash.to_json
 end
 
-get '/html/:base64' do
-  if auth_token
+get '/html/:base64' do 
+  check_login
     send_file(create_file(params[:base64]), disposition: "attachment", filename: "markdown.html")
-  else 
-    redirect '/requesttoken'
-  end
 end
 
 
