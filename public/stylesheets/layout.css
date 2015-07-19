@@ -4259,6 +4259,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
   }
 }
 .navbar-form {
@@ -6846,5 +6847,7 @@ body {
     user-select: none;
     display:none;
 }
+
+
 
 /* PINGENDO COMMENT DO NOT REMOVE */

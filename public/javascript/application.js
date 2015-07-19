@@ -2,7 +2,6 @@ $(function() {
   var mdconverter = new showdown.Converter();
   var editor = $("#editor");
   var preview = $("#preview");
-  var exportHTMLbutton = $("#exportHTMLbutton");
 
   var currentNoteGuid = "0";
   var currentNoteTitle = "Untitled note";
@@ -15,7 +14,7 @@ $(function() {
     preview.html(convertEditorContents);
   }
 
-  exportHTMLbutton.on('click', function(){
+  $("#exportHTML").on('click', function(){
     if (editor.val() == "") {
       // error handling
     } else {
@@ -129,7 +128,7 @@ $(function() {
 
 // FOR SAVE FUNCTION
 
-  $("#savenoteform").submit(function(e) {
+  $("#savenote").on('click', (function(e) {
     // get the form data
     var formData = {
         'guid'               : currentNoteGuid,
@@ -155,7 +154,7 @@ $(function() {
         });
     // stop the form from submitting the normal way and refreshing the page
     event.preventDefault();
-  });
+  }));
 
 // FOR SAVE AS FUNCTION
 

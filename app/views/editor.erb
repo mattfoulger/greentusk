@@ -1,6 +1,6 @@
 <head><title>Greentusk: Editor</title></head>
 <div class="container">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-2 col-md-3">
             <form class="form-horizontal" role="form">
                 <div class="form-group has-success has-feedback">
@@ -12,39 +12,10 @@
             </form>
         </div>
         <div class="col-lg-6 col-md-4">
-            <ul class="nav nav-left nav-pills">
-                <li>
-                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#newModal">
-                    New
-                    </button>
-                </li>
-                <li>
-                    <form id="savenoteform" action= '/notes'>
-                        <input type="hidden" name="_method" value="PUT" />
-                        <input value="Save" type="submit" class="btn btn-primary btn-md">
-                        </input>
-                    </form>
-                </li>
-                <li>
-                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#saveasModal">
-                    Save As
-                    </button>
-                </li>
-                <li>
-                    <button id="exportHTMLbutton" type="submit" class="btn btn-primary btn-md">Export to HTML
-                    </button>
-
-                </li>
-                <li>
-                    <div id="success">
-                    <b>Success!</b>
-                    </div>
-                </li>
-            </ul>
         </div>
         <div class="col-lg-5 col-md-5">
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-lg-2 col-md-3">
             <%= erb :'/notes/accordion' %>
