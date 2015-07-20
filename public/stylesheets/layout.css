@@ -3878,8 +3878,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: -1px;
 }
 .nav {
-  margin-bottom: 0;
-  padding-left: 0;
+  margin-bottom: 0px;
+  padding-left: 10px;
   list-style: none;
 }
 .nav > li {
@@ -4496,13 +4496,14 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse {
   background-color: #222222;
   border-color: #080808;
+  padding: 0px 10px 0px 10px;
 }
 .navbar-inverse .navbar-brand {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
+  color: #9d9d9d;
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
@@ -4514,7 +4515,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: transparent;
+  background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
@@ -6794,57 +6795,4 @@ body {
 
 
 
-
-#editor{
-  display: inline-block;
-  width: 100%;
-  height: 1000px;
-  resize: none;
-  padding: 1em;
-  line-height: 1.5;
-  /*margin-right: 10px;*/
-  outline: none;
-  background: #21271C;
-  color: #d9d9d9;
-  font-size: 12pt;
-/*  border-radius: 0px 5px 5px 5px;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;*/
-  border: 0px solid #000000;
- /* -webkit-box-shadow: inset -2px -2px 0px 0px #377106;
-  -moz-box-shadow: inset -2px -2px 0px 0px #377106;
-  box-shadow: inset -1px -1px 1px 0px #377106;
- */ 
-  &:focus{
-    outline: none;
-  }
-}
-
-#preview{
-  width: 100%;
-  height: 1000px;
-  padding: 10px;
-  background-color: #d9d9d9;
-  overflow-y: auto;
-}
-
-#activenotetitle {
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-
-}
-
-.footer {
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 40px;
-  background-color: #101010;
-  color: #D9D9D9;
-  vertical-align: center;
-}
-
-body {
-  background-color: #D9D9D9;
-}
 /* PINGENDO COMMENT DO NOT REMOVE */

@@ -1,0 +1,133 @@
+
+.accordion {
+  width: 100%;
+  /*max-width: 360px;*/
+  /*margin: 30px auto 20px;*/
+  background: #D9D9D9;
+  /*-webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;*/
+  padding: 0px;
+  overflow-y: auto;
+}
+
+.accordion .link {
+  cursor: pointer;
+  display: block;
+  padding: 15px 15px 15px 42px;
+  color: #21271C;
+  font-size: 16px;
+  border-bottom: 1px solid #CCC;
+  position: relative;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.accordion li:last-child .link { border-bottom: 0; }
+
+.accordion li i {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  font-size: 18px;
+  color: #21271C;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.accordion li i.fa-chevron-down {
+  right: 12px;
+  left: auto;
+  font-size: 16px;
+}
+
+.accordion li.open .link { background-color: #6DB134; color: #ffffff;}
+
+.accordion li.open i { color: #ffffff; }
+
+.accordion li.open i.fa-chevron-down {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.submenu {
+  display: none;
+  background: #21271C;
+  font-size: 14px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.submenu li { border-bottom: 1px solid #377106; }
+
+.submenu a {
+  display: block;
+  text-decoration: none;
+  color: #d9d9d9;
+  padding: 12px;
+  /*padding-left: 42px;*/
+  -webkit-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.submenu a:hover {
+  background: #377106;
+  color: #FFF;
+}
+
+.submenu a.current {
+  background: #377106;
+  color: #FFF;
+}
+
+
+#editor{
+  display: inline-block;
+  width: 100%;
+  height: 1000px;
+  resize: none;
+  padding: 1em;
+  line-height: 1.5;
+  /*margin-right: 10px;*/
+  outline: none;
+  background: #21271C;
+  color: #d9d9d9;
+  font-size: 12pt;
+  border: 0px solid #000000;
+  &:focus{
+    outline: none;
+  }
+}
+
+#preview{
+  width: 100%;
+  height: 1000px;
+  padding: 10px;
+  background-color: #d9d9d9;
+  overflow-y: auto;
+}
+
+#activenotetitle {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.footer {
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  background-color: #101010;
+  color: #D9D9D9;
+  vertical-align: center;
+}
+
+body {
+  background-color: #D9D9D9;
+}
