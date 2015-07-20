@@ -1,13 +1,14 @@
 
 .accordion {
   width: 100%;
-  max-width: 360px;
+  /*max-width: 360px;*/
   /*margin: 30px auto 20px;*/
   background: #FFF;
-  -webkit-border-radius: 4px;
+  /*-webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
+  border-radius: 4px;*/
   padding: 0px;
+  overflow-y: auto;
 }
 
 .accordion .link {
@@ -58,7 +59,7 @@
   background: #21271C;
   font-size: 14px;
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 500px;
 }
 
 .submenu li { border-bottom: 1px solid #377106; }
