@@ -6611,7 +6611,7 @@ body {
 }
 .section {
   position: relative;
-  padding: 35px 0;
+  padding: 10px 0;
 }
 .section .background-image {
   z-index: 0;
@@ -6800,7 +6800,7 @@ body {
   background: #21271C;
   color: #d9d9d9;
   font-size: 12pt;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 0px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
   border: 0px solid #000000;
@@ -6819,7 +6819,7 @@ body {
   padding: 10px;
   background-color: #d9d9d9;
   margin-left: 10px;
-  overflow: scroll;
+  overflow-y: auto;
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
