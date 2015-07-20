@@ -1,35 +1,18 @@
 <head><title>Greentusk: Editor</title></head>
-<div class="container">
-    <!-- <div class="row">
-        <div class="col-lg-2 col-md-3">
-            <form class="form-horizontal" role="form">
-                <div class="form-group has-success has-feedback">
-                    <div class="col-sm-12">
-                        <input type="search" class="form-control" id="inputEmail3" placeholder="Search">
-                        <span class="fa fa-check form-control-feedback"></span>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-6 col-md-4">
-        </div>
-        <div class="col-lg-5 col-md-5">
-        </div>
-    </div> -->
-    <div class="row">
-        <div class="col-lg-2 col-md-3">
+<div class="container-fluid">
+    <div class="row row-nopadding">
+        <div class="col-lg-3 col-md-3 col-sm-4">
             <%= erb :'/notes/accordion' %>
         </div>
-        <div class="col-lg-10 col-md-9">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <h2 id="activenotetitle">Welcome to Greentusk, your Evernote markdown editor!</h2>
+        <div class="col-lg-9 col-md-9 col-sm-8">
+            <div class="row row-nopadding" style="background-color: #377106;">
+                <div class="col-lg-12 col-md-12" style="padding-left: 12px; border-bottom: 1px solid #CCC;">
+                    <h2 id="activenotetitle" style="vertical-align: middle;">Welcome to Greentusk, your Evernote markdown editor!</h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row row-nopadding">
                 <div class="col-lg-6 col-md-6">
-                    <textarea name="" id="editor">
-## GREENTUSK (version 1.0)
+                    <textarea name="" id="editor">## GREENTUSK (version 1.0)
 
 Greentusk is a markdown editor for Evernote users! Using the Evernote API, users can:
 

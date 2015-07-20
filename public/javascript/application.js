@@ -3,13 +3,10 @@ $(function() {
   var editor = $("#editor");
   var preview = $("#preview");
 
+  // Set current note guid to 0, will be checked
+  // on save request to see if a note is loaded
   var currentNoteGuid = "0";
   var currentNoteTitle = "Untitled note";
-  var authorizepage = "/reset"
-
-  $("#logoutbutton").on('click', function(e) {
-    window.location.replace(authorizepage);
-  });
 
   function convertEditorContents(){
     return mdconverter.makeHtml(editor.val());
@@ -59,7 +56,11 @@ $(function() {
 
   var accordion = new Accordion($('#accordion'), false);
 
-  // load a note when it is clicked in our menu
+  // Open up the markdown tag submenu on page load
+  $("#markdowntag").parent().toggleClass('open');
+  $("#markdowntag").next().slideToggle();
+
+  // Call the load note function when a note is clicked
   $("#accordion").on('click', 'a', function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -97,10 +98,14 @@ $(function() {
     var newnote = "<li><a id='"+guid+"' href='/notes/"+guid+"'>"+title+"</a></li>";
     
     $("#"+notebook_guid).siblings('ul').prepend(newnote);
+    $("#markdowntag").siblings('ul').prepend(newnote);
     loadNote(guid);
-    // // TO DO: open notebook in accordion and scroll to new note
-    // $("#"+notebook_guid).dropdown;
-    // $("a.current").ScrollTo();
+
+    
+    // TO DO: open notebook in accordion
+    // Need to check which submenus might already be open, etc
+    // $("#"+notebook_guid).parent().addClass('open');
+    // $("#"+notebook_guid).next().slideDown();
   }
 
   $("#newModal").find(".newnoteform").submit(function(e)
@@ -226,10 +231,7 @@ $(function() {
         break;
     }
   }
-
-// $('#success').show().delay(5000).fadeOut();
   
-
   $(document).ajaxStart(function(){
     console.log('start ajax');
     $(".submenu a").css({'cursor' : 'wait'});
@@ -237,5 +239,14 @@ $(function() {
   $(document).ajaxStop(function(){
     console.log('stopped ajax');
     $(".submenu a").css({'cursor' : 'default'});
+  });
+
+  // Logout
+  // NOTE: this is probably better achieved with a
+  //  regular link with href="/reset"
+  var authorizepage = "/reset"
+
+  $("#logoutbutton").on('click', function(e) {
+    window.location.replace(authorizepage);
   });
 });
