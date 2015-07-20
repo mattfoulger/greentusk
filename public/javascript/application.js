@@ -128,9 +128,19 @@ $(function() {
     event.preventDefault();
   });
 
-// FOR SAVE FUNCTION
-
+  // FOR SAVE FUNCTION
+  // first check if there is a note loaded
+  // if not, do Save As
   $("#savenote").on('click', (function(e) {
+    if (currentNoteGuid == "0") {
+      $('#saveasModal').modal('show');
+    }
+    else {
+      saveNote();
+    }
+  }));
+
+  function saveNote() {
     // get the form data
     var formData = {
         'guid'               : currentNoteGuid,
@@ -156,11 +166,10 @@ $(function() {
         });
     // stop the form from submitting the normal way and refreshing the page
     event.preventDefault();
-  }));
+  }
 
-// FOR SAVE AS FUNCTION
-
-$("#saveasModal").find(".newnoteform").submit(function(e) {
+  // FOR SAVE AS FUNCTION
+  $("#saveasModal").find(".newnoteform").submit(function(e) {
     // get the form data
     var formData = {
         'title'              : $("#saveasModal").find(".titlefield").val(),
