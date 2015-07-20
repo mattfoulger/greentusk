@@ -5,6 +5,11 @@ $(function() {
 
   var currentNoteGuid = "0";
   var currentNoteTitle = "Untitled note";
+  var authorizepage = "/reset"
+
+  $("#logoutbutton").on('click', function(e) {
+    window.location.replace(authorizepage);
+  });
 
   function convertEditorContents(){
     return mdconverter.makeHtml(editor.val());
