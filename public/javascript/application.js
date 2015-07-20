@@ -100,9 +100,12 @@ $(function() {
     $("#"+notebook_guid).siblings('ul').prepend(newnote);
     $("#markdowntag").siblings('ul').prepend(newnote);
     loadNote(guid);
-    // // TO DO: open notebook in accordion and scroll to new note
-    // $("#"+notebook_guid).dropdown;
-    // $("a.current").ScrollTo();
+
+    
+    // TO DO: open notebook in accordion
+    // Need to check which submenus might already be open, etc
+    // $("#"+notebook_guid).parent().addClass('open');
+    // $("#"+notebook_guid).next().slideDown();
   }
 
   $("#newModal").find(".newnoteform").submit(function(e)
